@@ -1,5 +1,6 @@
 Лістинг 6.1 – Код реалізації алгоритму
- import java.util.*;
+ ```cpp
+import java.util.*;
 
 public class DijkstraListing61 {
 
@@ -87,3 +88,54 @@ public class DijkstraListing61 {
         dijkstra(G, 0);
     }
 }
+
+Лістинг 6.2 – Код реалізації алгоритму
+
+#include <stdio.h>
+#define INF 1000000000
+#define N 8
+
+int main() {
+    int W[N][N] = {
+        {0,   2,   5,   INF, INF, INF, 1,   INF},
+        {2,   0,   INF, 3,   INF, INF, INF, INF},
+        {5,   INF, 0,   INF, 2,   4,   4,   INF},
+        {INF, 3,   5,   0,   9,   5,   9,   INF},
+        {INF, INF, 2,   9,   0,   3,   INF, INF},
+        {INF, INF, 4,   5,   3,   0,   INF, 1},
+        {1,   INF, 4,   9,   INF, INF, 0,   6},
+        {INF, INF, INF, INF, INF, 1,   6,   0}
+    };
+
+    int D[N][N];
+
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+            D[i][j] = W[i][j];
+
+    for (int k = 0; k < N; k++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (D[i][k] + D[k][j] < D[i][j]) {
+                    D[i][j] = D[i][k] + D[k][j];
+                }
+            }
+        }
+    }
+
+    printf("Final matrix D:\\n");
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (D[i][j] >= INF)
+                printf("INF ");
+            else
+                printf("%3d ", D[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
+
+
